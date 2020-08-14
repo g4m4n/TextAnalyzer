@@ -5,9 +5,10 @@ import re
 
 wikipedia.set_lang("es")
 
-subjects = [["Ubuntu","Tecnología"],
-            ["arte","pintura"],
-            ["política","parlamento","leyes"]]
+subjects = [["Tecnología", "Ubuntu", "Programación", "Python"],
+            ["arte", "pintura", "escultura", "Picasso", "Arquitectura"],
+            ["política", "parlamento", "leyes", "congreso", "constitución"],
+            ["Deporte", "Futbol", "Baloncesto", "natación"]]
 
 def stringtocsv(text,ident,csvFile="data\classificator.csv"):
     with io.open(csvFile, 'a', encoding="utf-8") as File:
@@ -17,7 +18,7 @@ def stringtocsv(text,ident,csvFile="data\classificator.csv"):
 for i in range(0,len(subjects)):
     subject = subjects[i]
     for j in range(0, len(subject)):
-        #data = wikipedia.summary(subject[j])
+        print("Realizado: " + str((((j+1)/len(subject))*1/len(subjects)+(i/len(subjects)))*100) + "%")
         data = wikipedia.page(subject).content
         data = ' '.join(re.sub("(@[A-Za-z0-9]+)|(#[A-Za-z0-9]+)", " ", data).split())
         data = ' '.join(re.sub("\[[ ^\(]+[:digit:]+[^ \(]+\]", "",data).split())
