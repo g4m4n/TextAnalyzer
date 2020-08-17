@@ -10,11 +10,17 @@ subjects = [["Tecnología", "Ubuntu", "Programación", "Python"],
             ["política", "parlamento", "leyes", "congreso", "constitución"],
             ["Deporte", "Futbol", "Baloncesto", "natación"]]
 
+test_subjects = [[],
+                 [],
+                 [],
+                 []]
+
 def stringtocsv(text,ident,csvFile="data\classificator.csv"):
     with io.open(csvFile, 'a', encoding="utf-8") as File:
         writer = csv.writer(File, delimiter=",", quoting=csv.QUOTE_MINIMAL,lineterminator='\n')
         writer.writerow([text,ident])
 
+stringtocsv("text","topic")
 for i in range(0,len(subjects)):
     subject = subjects[i]
     for j in range(0, len(subject)):
@@ -33,8 +39,8 @@ for i in range(0,len(subjects)):
         for z in range(0,len(splitData)):
             contador += len(splitData[z]) + 1
             if contador > x:
-                finalSent = splitData[last:z-1]
-                stringtocsv(' '.join(finalSent), i)
+                finalSub = splitData[last:z-1]
+                stringtocsv(' '.join(finalSub), i)
                 contador = len(splitData[z])
                 last = z
 

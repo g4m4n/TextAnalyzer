@@ -3,7 +3,11 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation
 from keras.layers import Embedding
 from keras.layers import Conv1D, GlobalMaxPooling1D
+from keras.preprocessing.text import one_hot
 from keras.datasets import imdb
+import pandas as pd
+import numpy as np
+import itertools
 
 # set parameters:
 max_features = 5000
@@ -17,6 +21,28 @@ epochs = 2
 
 print('Loading data...')
 (x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=max_features)
+
+'''
+datasetpanda = pd.read_csv("data/classificator.csv", delimiter=",",encoding='ISO-8859-1')
+datax = pd.DataFrame(datasetpanda,columns=['text'],dtype='str')
+datay = pd.DataFrame(datasetpanda,columns=['topic'],dtype='str')
+
+arrayX = []
+for i in range(0,datax.size):
+    listX = one_hot(str(datax.values[i]),maxlen)
+    arrayX.append(listX)
+
+arrayY = []
+for i in range(0,datay.size):
+    listY = datay.values[i]
+    arrayY.append(listY)
+
+arrayX = np.array(arrayX)
+arrayY = np.array(arrayY)
+
+(x_train, y_train) = (arrayX, arrayY)
+(x_test, y_test) = (arrayX, arrayY)
+'''
 print(len(x_train), 'train sequences')
 print(len(x_test), 'test sequences')
 

@@ -80,11 +80,11 @@ def clean_row(tweet):
 def preprocess(input_file, output_file, keep=1,filas=0):
     with open(output_file, 'w') as csvoutfile:
         csv_writer = csv.writer(csvoutfile, delimiter=',', lineterminator='\n')
-        csv_writer.writerow(["tweet_date_created","tweet_id","tweet_text","language","sentiment","sentiment_score"])
-        with open(input_file, 'r', newline='') as csvinfile: #,encoding='latin1'
+        csv_writer.writerow(["tweet_date_created", "tweet_id", "tweet_text", "language", "sentiment", "sentiment_score"])
+        with open(input_file, 'r', newline='') as csvinfile:
             csv_reader = csv.reader(csvinfile, delimiter=',', quotechar='"')
             for row in csv_reader:
-                if row[4].upper() in ['POSITIVE','NEGATIVE']:
+                if row[4].upper() in ['POSITIVE', 'NEGATIVE']:
                     row_output = row
                     if str(row[4]) == 'POSITIVE':
                         row_output[4] = '1'
@@ -97,7 +97,7 @@ def preprocess(input_file, output_file, keep=1,filas=0):
                     #row_output[2] = nltk.word_tokenize(row_output[2])
                     csv_writer.writerow(row_output)# Preparing the training dataset
 
-preprocess('betsentiment-ES-tweets-sentiment-teams.csv', 'tweets.train')
+preprocess('betsentiment-ES-tweets-sentiment-teams.csv', 'data/tweets.train')
 
 
 print('Loading data...')
@@ -111,7 +111,7 @@ print('Loading data...')
 #for i in range(0,dataset2.size):
 #    dataset2[i] = one_hot(dataset2[i], maxlen, filters='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n', lower=True, split=' ')
 
-datasetpanda = pd.read_csv("tweets.train", delimiter=",",encoding='ISO-8859-1')
+datasetpanda = pd.read_csv("data/tweets.train", delimiter=",",encoding='ISO-8859-1')
 
 datax = pd.DataFrame(datasetpanda,columns=['tweet_text'],dtype='str')
 datay = pd.DataFrame(datasetpanda,columns=['sentiment'],dtype='str')
@@ -123,9 +123,7 @@ for i in range(0,datax.size):
 
 arrayY = []
 for i in range(0,datay.size):
-    print(datay.values[i])
     listY = datay.values[i]
-    print(listY)
     arrayY.append(listY)
 
 
